@@ -1,0 +1,29 @@
+# Node / backend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ambiente local / config
+.env
+*.sqlite
+*.db
+
+# Builds / saída
+dist/
+build/
+out-tsc/
+
+# Angular / frontend
+/frontend/node_modules/
+frontend/dist/
+.angular/cache/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.log
+
+# Outras caches ou temporários
+.cache/
+*.tmp

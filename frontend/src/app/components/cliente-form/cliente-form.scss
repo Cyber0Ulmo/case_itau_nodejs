@@ -1,0 +1,11 @@
+:host {
+  display: block;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+}

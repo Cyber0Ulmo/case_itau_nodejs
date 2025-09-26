@@ -1,0 +1,66 @@
+<div class="card">
+  <div class="card-header bg-warning text-dark">
+     <h5 class="card-title mb-0">
+      <i class="fas fa-money-bill-wave me-2"></i>Operações Financeiras
+    </h5>
+  </div>
+
+  <div class="card-body">
+    <div *ngIf="mensagem" 
+         class="alert" 
+         [class.alert-success]="tipoMensagem === 'success'"
+         [class.alert-danger]="tipoMensagem === 'error'">
+      {{ mensagem }}
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="tipo" class="form-label">Tipo de Operação</label>
+        <select class="form-select" id="tipo" name="tipo" [(ngModel)]="operacao.tipo">
+          <option value="deposito">Depósito</option>
+          <option value="saque">Saque</option>
+          <option value="transferencia">Transferência</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="clienteId" class="form-label">Cliente</label>
+        <select class="form-select" id="clienteId" name="clienteId" [(ngModel)]="operacao.clienteId" required>
+          <option value="0">Selecione um cliente</option>
+          <option *ngFor="let cliente of clientes" [value]="cliente.id">
+            {{ cliente.nome }} (Saldo: R$ {{ cliente.saldo.toFixed(2) }})
+          </option>
+        </select>
+      </div>
+
+      <div *ngIf="operacao.tipo === 'transferencia'" class="mb-3">
+        <label for="clienteDestinoId" class="form-label">Cliente Destino</label>
+        <select class="form-select" id="clienteDestinoId" name="clienteDestinoId" [(ngModel)]="operacao.clienteDestinoId" required>
+          <option value="0">Selecione o cliente destino</option>
+          <option *ngFor="let cliente of clientes" [value]="cliente.id" [disabled]="cliente.id === operacao.clienteId">
+            {{ cliente.nome }} (Saldo: R$ {{ cliente.saldo.toFixed(2) }})
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="valor" class="form-label">Valor (R$)</label>
+        <input type="number" 
+               class="form-control" 
+               id="valor" 
+               name="valor"
+               [(ngModel)]="operacao.valor"
+               step="0.01"
+               min="0.01"
+               required>
+      </div>
+
+      <button type="submit" 
+              class="btn btn-warning w-100"
+              [disabled]="carregando">
+        <i class="fas" [class.fa-spinner]="carregando" [class.fa-check]="!carregando"></i>
+        {{ carregando ? 'Processando...' : 'Executar Operação' }}
+      </button>
+    </form>
+  </div>
+</div>

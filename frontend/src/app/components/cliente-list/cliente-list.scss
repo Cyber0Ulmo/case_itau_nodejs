@@ -1,0 +1,21 @@
+:host {
+  display: block;
+}
+
+.table-responsive {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.text-success {
+  color: #198754 !important;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}

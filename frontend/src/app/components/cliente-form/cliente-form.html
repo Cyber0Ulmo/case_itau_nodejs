@@ -1,0 +1,58 @@
+<div class="card">
+  <div class="card-header bg-success text-white">
+    <h5 class="card-title mb-0">
+      <i class="fas fa-plus me-2"></i>Cadastrar Novo Cliente
+    </h5>
+  </div>
+
+  <div class="card-body">
+    <!-- Mensagens -->
+    <div *ngIf="mensagem" 
+         class="alert" 
+         [class.alert-success]="tipoMensagem === 'success'"
+         [class.alert-danger]="tipoMensagem === 'error'">
+      {{ mensagem }}
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #clienteForm="ngForm">
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" 
+               class="form-control" 
+               id="nome" 
+               name="nome"
+               [(ngModel)]="cliente.nome"
+               required
+               minlength="3"
+               #nome="ngModel">
+        <div *ngIf="nome.invalid && nome.touched" class="text-danger small">
+          <div *ngIf="nome.errors?.['required']">Nome é obrigatório</div>
+          <div *ngIf="nome.errors?.['minlength']">Nome deve ter pelo menos 3 caracteres</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" 
+               class="form-control" 
+               id="email" 
+               name="email"
+               [(ngModel)]="cliente.email"
+               required
+               email
+               #email="ngModel">
+        <div *ngIf="email.invalid && email.touched" class="text-danger small">
+          <div *ngIf="email.errors?.['required']">Email é obrigatório</div>
+          <div *ngIf="email.errors?.['email']">Email deve ser válido</div>
+        </div>
+      </div>
+
+      <button type="submit" 
+              class="btn btn-success w-100"
+              [disabled]="carregando">
+        <i class="fas" [class.fa-spinner]="carregando" [class.fa-plus]="!carregando"></i>
+        {{ carregando ? 'Cadastrando...' : 'Cadastrar Cliente' }}
+      </button>
+    </form>
+  </div>
+</div>
